@@ -1,2 +1,15 @@
-# node-red-iot-monitoring
-Node-RED based IoT sensor monitoring system with SQLite database and dashboard visualization.
+# Node-RED IoT Monitoring
+
+Учебный проект для изучения GitHub, Git, Node-RED и систем мониторинга IoT.
+
+## Цели проекта
+
+- Изучение Git и GitHub
+- Работа с Node-RED
+- Сбор данных с устройств по Modbus TCP
+- Хранение данных в базе данных
+- Визуализация данных на дашбордах
+
+## Автор
+
+Дмитрий (TibooGang)
