@@ -1,0 +1,889 @@
+[
+    {
+        "id": "51cec4f5fb5fe98c",
+        "type": "tab",
+        "label": "node-red-GitHub",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "975359fe9b14ad79",
+        "type": "group",
+        "z": "51cec4f5fb5fe98c",
+        "name": "Получение сырых данных",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "0b698a9aaccd7fda",
+            "8399f586a9979ec9",
+            "dd7c1a0d188148a8",
+            "586f44a70214e1e0",
+            "a2941fda31101a58"
+        ],
+        "x": 274,
+        "y": 719,
+        "w": 512,
+        "h": 202
+    },
+    {
+        "id": "acdfc516f96c98c6",
+        "type": "group",
+        "z": "51cec4f5fb5fe98c",
+        "name": "Данные по контуру водорода",
+        "style": {
+            "label": true,
+            "fill": "#e3f3d3"
+        },
+        "nodes": [
+            "e3a2ce236c73f53a",
+            "0275014be015a1d0",
+            "1850c987be269482",
+            "7214cef77831c907",
+            "2d21472570ee5f66",
+            "0734281c35ab5911"
+        ],
+        "x": 1054,
+        "y": 39,
+        "w": 412,
+        "h": 282
+    },
+    {
+        "id": "a714d27dd8e3c965",
+        "type": "group",
+        "z": "51cec4f5fb5fe98c",
+        "name": "Данные по контуру воздуха",
+        "style": {
+            "label": true,
+            "fill": "#bfdbef"
+        },
+        "nodes": [
+            "d4b117b2396a060d",
+            "557374715451b334",
+            "37a440b1ae8a9164",
+            "8126d26202a57c58",
+            "03ba2bafb6a73870",
+            "c219521779728908"
+        ],
+        "x": 1054,
+        "y": 479,
+        "w": 412,
+        "h": 282
+    },
+    {
+        "id": "4640be0de93c9715",
+        "type": "group",
+        "z": "51cec4f5fb5fe98c",
+        "name": "Данные по перепаду между контурами",
+        "style": {
+            "label": true,
+            "fill": "#dbcbe7"
+        },
+        "nodes": [
+            "abbd12b511db489f",
+            "cc1a2cf00b3971d9"
+        ],
+        "x": 1054,
+        "y": 347,
+        "w": 452,
+        "h": 122
+    },
+    {
+        "id": "0ce2924ce5823f9d",
+        "type": "group",
+        "z": "51cec4f5fb5fe98c",
+        "name": "Данные по контуру охлаждающей жидкости",
+        "style": {
+            "fill": "#bfc7d7",
+            "label": true
+        },
+        "nodes": [
+            "19e70ecff5d7416e",
+            "f8126196d564b75f",
+            "3d302a670360e0a8",
+            "e35c82da3c1eaab1",
+            "51dbf6e578db8f98"
+        ],
+        "x": 1054,
+        "y": 779,
+        "w": 512,
+        "h": 242
+    },
+    {
+        "id": "e618ac6c7fa6bd6c",
+        "type": "group",
+        "z": "51cec4f5fb5fe98c",
+        "name": "Электрические параметры",
+        "style": {
+            "fill": "#ffbfbf",
+            "label": true
+        },
+        "nodes": [
+            "44bacf67c5c58829",
+            "5a9d697ae0ce84a3",
+            "8dd8be487a8f1df0",
+            "7f762dc79beb6cef"
+        ],
+        "x": 1054,
+        "y": 1039,
+        "w": 632,
+        "h": 182
+    },
+    {
+        "id": "59d1da5ec444d262",
+        "type": "group",
+        "z": "51cec4f5fb5fe98c",
+        "name": "Сделано для проведения тестов",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "8b0365b326f8bc5b",
+            "e7ffe2c6aab68486"
+        ],
+        "x": 414,
+        "y": 559,
+        "w": 252,
+        "h": 122
+    },
+    {
+        "id": "b23e68379e33f5da",
+        "type": "group",
+        "z": "51cec4f5fb5fe98c",
+        "name": "Отправка в БД",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "8c34f8acf4df5aae"
+        ],
+        "x": 1754,
+        "y": 519,
+        "w": 292,
+        "h": 82
+    },
+    {
+        "id": "d9dabb2e93b90f8e",
+        "type": "inject",
+        "z": "51cec4f5fb5fe98c",
+        "d": true,
+        "name": "Запуск опроса раз в секунду",
+        "props": [],
+        "repeat": "0.1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 580,
+        "wires": [
+            [
+                "0b698a9aaccd7fda",
+                "8399f586a9979ec9",
+                "082beeb17018ccbe",
+                "8b0365b326f8bc5b"
+            ]
+        ]
+    },
+    {
+        "id": "082beeb17018ccbe",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "name": "Формируем TimeStamp",
+        "func": "let ts = Date.now();\n\nflow.set(\"cycle_timestamp\", ts);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0b698a9aaccd7fda",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "d": true,
+        "g": "975359fe9b14ad79",
+        "name": "Запрос к ADAM",
+        "func": "msg.payload = {\n    value: msg.payload,\n    'fc': 4,  //read input registers\n    'unitid': 1,\n    'address': 0, //Адрес первого регистра\n    'quantity': 10 //Количество опрашиваемых регистров\n    };\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 760,
+        "wires": [
+            [
+                "dd7c1a0d188148a8"
+            ]
+        ]
+    },
+    {
+        "id": "8399f586a9979ec9",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "d": true,
+        "g": "975359fe9b14ad79",
+        "name": "Запрос к RS485",
+        "func": "//Настройка производится внутри ноды modbus-flex-getter\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 880,
+        "wires": [
+            [
+                "586f44a70214e1e0"
+            ]
+        ]
+    },
+    {
+        "id": "dd7c1a0d188148a8",
+        "type": "modbus-flex-getter",
+        "z": "51cec4f5fb5fe98c",
+        "d": true,
+        "g": "975359fe9b14ad79",
+        "name": "Получение данных от ADAM",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "server": "",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 630,
+        "y": 760,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "586f44a70214e1e0",
+        "type": "modbus-flex-getter",
+        "z": "51cec4f5fb5fe98c",
+        "d": true,
+        "g": "975359fe9b14ad79",
+        "name": "Получение данных по RS485",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "server": "",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 630,
+        "y": 880,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e3a2ce236c73f53a",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "acdfc516f96c98c6",
+        "name": "Расход водорода, slpm\\нл/мин",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 40;     \nconst OUT_MAX = 2000;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n// Формат для influxdb out:\n// msg.payload = [fields, tags]\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2))}, // поля (fields)\n    { sensor: \"Flow_H2\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1210,
+        "y": 80,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "0275014be015a1d0",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "acdfc516f96c98c6",
+        "name": "Температура водорода на входе в БТЭ, °C",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 100;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Temperature_Inlet_H2\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 160,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "1850c987be269482",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "acdfc516f96c98c6",
+        "name": "Влажность водорода на входе в БТЭ, %",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 100;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Humidity_Inlet_H2\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 200,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "7214cef77831c907",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "acdfc516f96c98c6",
+        "name": "Температура водорода на выходе из БТЭ, °C",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 100;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Temperature_Outlet_H2\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 240,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "2d21472570ee5f66",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "acdfc516f96c98c6",
+        "name": "Перепад давления на анодном тракте, кПа",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 40;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Pressure_Difference_Anode\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 280,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "0734281c35ab5911",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "acdfc516f96c98c6",
+        "name": "Давление водорода на входе в БТЭ, кПа(изб)",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 2000;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Pressure_H2\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 120,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "d4b117b2396a060d",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "a714d27dd8e3c965",
+        "name": "Расход воздуха, slpm\\нл/мин",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 100;     \nconst OUT_MAX = 5000;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Flow_Air\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1210,
+        "y": 520,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "557374715451b334",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "a714d27dd8e3c965",
+        "name": "Давление воздуха на входе в БТЭ, кПа (изб)",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 2000;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Pressure_Air\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 560,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "37a440b1ae8a9164",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "a714d27dd8e3c965",
+        "name": "Температура воздуха на входе в БТЭ, °C",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 100;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Temperature_Inlet_Air\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 600,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "8126d26202a57c58",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "a714d27dd8e3c965",
+        "name": "Влажность воздуха на входе в БТЭ, %",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 100;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Humidity_Inlet_Air\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 640,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "03ba2bafb6a73870",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "a714d27dd8e3c965",
+        "name": "Температура воздуха на выходе из БТЭ, °C",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 100;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Temperature_Outlet_Air\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 680,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "c219521779728908",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "a714d27dd8e3c965",
+        "name": "Перепад давления на катодном тракте, кПа",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 40;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Pressure_Difference_Cathode\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 720,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "abbd12b511db489f",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "4640be0de93c9715",
+        "name": "Перепад давления между катодом и ОЖ, кПа",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 100;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Pressure_Difference_Cathode_Coolant\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 428,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "cc1a2cf00b3971d9",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "4640be0de93c9715",
+        "name": "Перепад давления между анодном и катодом, кПа",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 100;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Pressure_Difference_Anode_Cathode\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1280,
+        "y": 388,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "19e70ecff5d7416e",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "0ce2924ce5823f9d",
+        "name": "Расход охлаждающей жидкости, л/мин ",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 500;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Flow_Water\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 820,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "f8126196d564b75f",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "0ce2924ce5823f9d",
+        "name": "Давление охлаждающей жидкости, кПа изб.",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 100;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Pressure_Water\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 860,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "3d302a670360e0a8",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "0ce2924ce5823f9d",
+        "name": "Температура охлаждающей жидкости на входе в БТЭ, °C",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 100;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Temperature_Inlet_Water\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1300,
+        "y": 900,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "e35c82da3c1eaab1",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "0ce2924ce5823f9d",
+        "name": "Температура охлаждающей жидкости на выходе в БТЭ, °C",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 100;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Temperature_Outlet_Water\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1310,
+        "y": 940,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "51dbf6e578db8f98",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "0ce2924ce5823f9d",
+        "name": "Перепад давления на тракте СТС, кПа",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 250;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Pressure_Difference_Water\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 980,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "44bacf67c5c58829",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "e618ac6c7fa6bd6c",
+        "name": "Сила тока, А",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 750;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Current\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1150,
+        "y": 1080,
+        "wires": [
+            [
+                "7f762dc79beb6cef",
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "5a9d697ae0ce84a3",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "e618ac6c7fa6bd6c",
+        "name": "Напряжение общее, В",
+        "func": "// ==========================================\n// 📊 НАСТРОЙКИ ДИАПАЗОНОВ (МЕНЯТЬ ТУТ)\n// ==========================================\n\n// 1. Входной диапазон (от АЦП / ADAM)\nconst IN_MIN = 0;      // Минимальное сырое число (обычно 0)\nconst IN_MAX = 65535;  // Максимальное сырое число (обычно 65535)\n\n// 2. Выходной диапазон (Физические единицы датчика)\n// Пример для температуры: от -50 до +150 градусов\n// Пример для давления: от 0 до 10 бар\n// Пример для тока: от -1000 до 1000 Ампер\nconst OUT_MIN = 0;     \nconst OUT_MAX = 500;   \n\n// ==========================================\n// ⚙️ ЛОГИКА РАСЧЕТА\n// ==========================================\n\n// Получаем входящее значение (преобразуем в число на всякий случай)\nlet rawValue = Number(msg.payload);\n\n// Формула линейной интерполяции:\n// Y = [(X - Xmin) / (Xmax - Xmin)] * (Ymax - Ymin) + Ymin\nlet percent = (rawValue - IN_MIN) / (IN_MAX - IN_MIN);\nlet physicalValue = (percent * (OUT_MAX - OUT_MIN)) + OUT_MIN;\n\n// 🛡️ Ограничитель (Clamping):\n// Если значение вылезло за пределы (из-за помех или ошибок), \n// обрезаем его, чтобы не показать 105% или -5%\nif (physicalValue > OUT_MAX) physicalValue = OUT_MAX;\nif (physicalValue < OUT_MIN) physicalValue = OUT_MIN;\n\n\nmsg.payload = [\n    { value: parseFloat(physicalValue.toFixed(2)) }, // поля (fields)\n    { sensor: \"Voltage\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1190,
+        "y": 1120,
+        "wires": [
+            [
+                "7f762dc79beb6cef",
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "8dd8be487a8f1df0",
+        "type": "function",
+        "z": "51cec4f5fb5fe98c",
+        "g": "e618ac6c7fa6bd6c",
+        "name": "Мощность, кВт",
+        "func": "let current = msg.payload.Current.payload[0].value;\nlet voltage = msg.payload.Voltage.payload[0].value;\n\nlet Power = (current * voltage) / 1000;\n\n\nmsg.payload = [\n    { value: parseFloat(Power.toFixed(2)) }, // поля (fields)\n    { sensor: \"Power\" } // теги (tags)\n];\nmsg.timestamp = flow.get(\"cycle_timestamp\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1580,
+        "y": 1180,
+        "wires": [
+            [
+                "8c34f8acf4df5aae"
+            ]
+        ]
+    },
+    {
+        "id": "7f762dc79beb6cef",
+        "type": "join",
+        "z": "51cec4f5fb5fe98c",
+        "g": "e618ac6c7fa6bd6c",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "",
+        "propertyType": "full",
+        "key": "payload[1].sensor",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": false,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1410,
+        "y": 1180,
+        "wires": [
+            [
+                "8dd8be487a8f1df0"
+            ]
+        ]
+    },
+    {
+        "id": "8b0365b326f8bc5b",
+        "type": "random",
+        "z": "51cec4f5fb5fe98c",
+        "g": "59d1da5ec444d262",
+        "name": "Генерация сигналов",
+        "low": "0",
+        "high": "65535",
+        "inte": "true",
+        "property": "payload",
+        "x": 540,
+        "y": 600,
+        "wires": [
+            [
+                "e3a2ce236c73f53a",
+                "0734281c35ab5911",
+                "0275014be015a1d0",
+                "1850c987be269482",
+                "7214cef77831c907",
+                "2d21472570ee5f66",
+                "cc1a2cf00b3971d9",
+                "abbd12b511db489f",
+                "d4b117b2396a060d",
+                "557374715451b334",
+                "37a440b1ae8a9164",
+                "8126d26202a57c58",
+                "03ba2bafb6a73870",
+                "c219521779728908",
+                "19e70ecff5d7416e",
+                "f8126196d564b75f",
+                "3d302a670360e0a8",
+                "e35c82da3c1eaab1",
+                "51dbf6e578db8f98",
+                "44bacf67c5c58829",
+                "5a9d697ae0ce84a3"
+            ]
+        ]
+    },
+    {
+        "id": "8c34f8acf4df5aae",
+        "type": "influxdb out",
+        "z": "51cec4f5fb5fe98c",
+        "g": "b23e68379e33f5da",
+        "influxdb": "",
+        "name": "База данных InfluxDB v1.x",
+        "measurement": "Сюда ввести название Measurements",
+        "precision": "ms",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 1900,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "a2941fda31101a58",
+        "type": "comment",
+        "z": "51cec4f5fb5fe98c",
+        "d": true,
+        "g": "975359fe9b14ad79",
+        "name": "",
+        "info": "Для полноценной работы необходимо\nзаменить адреса и quantity",
+        "x": 370,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "e7ffe2c6aab68486",
+        "type": "comment",
+        "z": "51cec4f5fb5fe98c",
+        "g": "59d1da5ec444d262",
+        "name": "",
+        "info": "Разброс Random от 0 до 65535\nсделан специально с учетом\nформируемых modbus-устройством\nraw-значений в диапазоне \nот 0 до 65535\nгде 0 соответствует 4мА\nа 65535 - 20мА",
+        "x": 510,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "1d5cb2d8c49c8041",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-modbus": "5.60.2",
+            "node-red-node-random": "0.4.1",
+            "node-red-contrib-influxdb": "0.7.0"
+        }
+    }
+]
