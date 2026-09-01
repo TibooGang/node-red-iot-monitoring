@@ -23,6 +23,7 @@
 
 ## Архитектура
 
+```text
         ADAM / Modbus TCP
                 │
                 │
@@ -52,3 +53,4 @@
         │  Dashboard /  │
         │  Mnemoscheme  │
         └───────────────┘
+```
